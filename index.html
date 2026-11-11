@@ -1,0 +1,398 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Toolbox | Toollandschaft</title><style>
+:root{font:14px/1.5 system-ui,sans-serif;color:#172e58;background:#f4f6fa}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button,summary{cursor:pointer}button{color:inherit}.topbar{height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;background:white;border-bottom:1px solid #dce4ef;position:sticky;top:0;z-index:5}.title{font-size:18px;font-weight:700;letter-spacing:-.4px}.title span{font-size:12px;color:#738199;font-weight:400;letter-spacing:0;margin-left:14px}.controls{display:flex;gap:8px;align-items:center}.button{text-decoration:none;display:inline-block}.button,.menu summary{background:white;border:1px solid #d6e0ed;border-radius:6px;padding:7px 12px;font-size:12px}.button.active{background:#edf2fb;border-color:#9aafd2}.button:hover,.menu summary:hover{background:#f0f4fa}.menu{position:relative}.menu summary{list-style:none;font-size:19px;line-height:18px;padding:7px 10px}.menu summary::-webkit-details-marker{display:none}.menu-panel{position:absolute;right:0;top:40px;min-width:180px;padding:6px;background:white;border:1px solid #dce4ef;border-radius:8px;box-shadow:0 8px 30px #20395f20;display:grid}.menu-panel button{border:0;background:none;text-align:left;font-size:12px;padding:9px;border-radius:4px}.menu-panel button:hover{background:#f0f4fa}.canvas{padding:16px;max-width:2000px;margin:auto}.architecture{background:white;border:1px solid #d8e2f0;border-radius:12px;overflow:auto}#graph-surface svg{display:block;width:100%;min-width:1150px;height:auto}.graph-node{cursor:pointer;outline:none}.graph-node:hover rect,.graph-node:focus rect{stroke-width:2.5;stroke-opacity:1}.graph-muted{opacity:.12}.graph-edge,.graph-node,.graph-branch{transition:opacity .15s}.hint{font-size:11px;color:#7b89a0;margin:8px 2px 0}.hidden{display:none!important}.detail{position:fixed;right:20px;top:78px;bottom:20px;z-index:6;width:340px;max-width:calc(100vw - 32px);background:white;border:1px solid #cfdbee;border-radius:10px;padding:24px;box-shadow:0 8px 40px #16326225;overflow:auto}.close-detail{position:absolute;right:10px;top:8px;border:0;background:none;font-size:25px;line-height:28px;color:#738199}.eyebrow{color:#738199;text-transform:uppercase;font-size:10px;font-weight:700;letter-spacing:1.4px;margin-right:20px}.detail h2{font-size:24px;margin:9px 0}.lead{font-size:12px;color:#63748c}.detail h3{font-size:10px;color:#738199;text-transform:uppercase;letter-spacing:1px;margin:23px 0 10px}.detail ul{padding-left:17px;font-size:12px}.detail li{margin:7px 0}.tags{display:flex;gap:6px;flex-wrap:wrap}.tags span{font-size:10px;padding:4px 7px;background:#eef3fa;border-radius:4px}.connection{border-top:1px solid #e2e8f0;padding:10px 0;font-size:12px}.connection button{border:0;background:none;padding:0;font-weight:650;text-align:left}.connection small{display:block;color:#738199;font-size:10px;margin-top:5px}.status-line{display:inline-block;width:16px;border-top:2px solid #7287a2;margin:0 6px 3px 0}.status-line.planned{border-top-style:dashed}.notice{font-size:11px;padding:10px;background:#faf6eb;color:#806d43;border-radius:4px}.subtle-button{border:0;background:none;padding:10px 0;font-size:11px;color:#738199}dialog{border:1px solid #dce4ef;border-radius:12px;max-width:520px;width:90%;padding:25px;color:#172e58}dialog::backdrop{background:#172e5880}dialog h2{margin:0 0 18px;font-size:23px}form{display:grid;gap:12px}label{display:grid;gap:5px;font-size:12px}input,select,textarea{border:1px solid #dce4ef;padding:9px;border-radius:5px;color:inherit;background:white}.form-actions{display:flex;justify-content:flex-end;gap:8px}.btn{border:1px solid #d6e0ed;padding:8px 12px;border-radius:5px;background:white;font-size:12px}.btn.primary{background:#233b83;border-color:#233b83;color:white}#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#172e58;color:white;padding:11px 20px;border-radius:7px;font-size:12px;z-index:20}@media(max-width:650px){.export-label{display:none}.topbar{padding:0 12px;height:58px}.title{font-size:15px}.title span{display:none}.controls{gap:5px}.button{padding:7px 9px}.canvas{padding:8px}.detail{right:12px;top:70px;bottom:12px}.hint{font-size:10px}}@media print{@page{size:A3 landscape;margin:8mm}.topbar,.hint,.detail{display:none!important}.canvas{padding:0}.architecture{border:0;overflow:visible}#graph-surface svg{min-width:0}}
+#graph-surface svg.marketing-view{min-width:1600px}@media(max-width:650px){.topbar{height:auto;min-height:58px;flex-wrap:wrap;padding:8px 12px}.controls{width:100%;flex-wrap:wrap}.detail{top:105px}}@media print{#graph-surface svg.marketing-view{min-width:0}}
+</style></head><body><header class="topbar"><div class="title">Toolbox <span>Toollandschaft</span></div><div class="controls"><button class="button active" id="overview" aria-pressed="true">Gesamtansicht</button><button class="button" id="marketing-toggle" aria-pressed="false">Marketing</button><a class="button" id="download-png" href="./toolbox-architektur.png" download="Toolbox-Toollandschaft.png" target="_blank" rel="noopener">PNG<span class="export-label"> exportieren</span></a><a class="button" id="download-svg" href="./toolbox-architektur.svg" download="Toolbox-Toollandschaft.svg" target="_blank" rel="noopener">SVG<span class="export-label"> exportieren</span></a><details class="menu" id="edit-menu"><summary aria-label="Bearbeitung und Daten">⋯</summary><div class="menu-panel"><button id="add">Tool ergänzen</button><button id="export">JSON exportieren</button><button id="import">JSON importieren</button></div></details></div></header><main class="canvas"><section class="architecture" id="architecture" aria-label="Interaktive Toollandschaft"><div id="graph-surface"></div></section><p class="hint">Tool anklicken: Verbindungen & Details · Gesamtansicht: Auswahl aufheben · auch per Esc oder Klick auf eine freie Fläche</p></main><aside class="detail hidden" id="detail" aria-label="Tooldetails"></aside><input type="file" id="file" accept="application/json" hidden><dialog id="editor"><h2>Tool ergänzen</h2><form id="tool-form"><label>Toolname<input name="name" required maxlength="60"></label><label>Ebene<select name="layer"><option value="app">Anwender-Tool</option><option value="gateway">Gateway</option><option value="ai">KI / übergreifender Dienst</option></select></label><label>Kurzbeschreibung<textarea name="summary" required rows="2" maxlength="400"></textarea></label><label>Technische Funktion<textarea name="function" rows="3" maxlength="2000"></textarea></label><label>Verbindung zu<select name="target" id="target"></select></label><label>Verbindungsstatus<select name="status"><option value="planned">Geplant / teilweise umgesetzt</option><option value="active">Bestehend</option></select></label><label>Schnittstelle<input name="protocol" value="gRPC" maxlength="80"></label><p style="font-size:11px;color:var(--muted)">Speicherung lokal in diesem Browser. Weitere Verbindungen sind in den Tooldetails ergänzbar.</p><div class="form-actions"><button type="button" class="btn" data-close="editor">Abbrechen</button><button class="btn primary">Tool speichern</button></div></form></dialog><dialog id="link-editor"><h2>Verbindung ergänzen</h2><form id="link-form"><label>Ziel-Tool<select name="target" id="link-target"></select></label><label>Status<select name="status"><option value="planned">Geplant / teilweise umgesetzt</option><option value="active">Bestehend</option></select></label><label>Schnittstelle<input name="protocol" value="gRPC" required maxlength="80"></label><div class="form-actions"><button type="button" class="btn" data-close="link-editor">Abbrechen</button><button class="btn primary">Verbindung speichern</button></div></form></dialog><dialog id="export-dialog"><h2 id="export-title">Grafik exportieren</h2><p id="export-status" role="status">Export wird erstellt …</p><div class="form-actions"><button class="btn" type="button" data-close="export-dialog">Schließen</button><a class="btn primary" id="prepared-download" target="_blank" rel="noopener" hidden>Datei herunterladen</a></div></dialog><div id="toast" role="status" hidden></div><script>
+
+'use strict';
+// Der Katalog und seine Beziehungen sind getrennt: Neue Tools benötigen dadurch keine manuelle Änderung des Layouts.
+const seed={tools:[
+{id:'core',name:'Toolbox Core',layer:'management',summary:'Toolverteilung und zentrale Bestandsverwaltung.',details:['Verteilt die Anwendungen zentral und verwaltet den Datenbestand.','Kann neue Werkdaten in Sensor.db, ToolboxCore.db, IOs.json und Machine.json schreiben.'],protocols:[],open:'Technische Zugriffswege und Synchronisierung sind noch zu spezifizieren.'},
+{id:'center',name:'MachineCenter',layer:'app',summary:'Sensordaten & Maschinenlisten pflegen.',details:['Eigenständiges Anwender-Tool auf derselben Ebene wie die übrigen Anwendungen.','Kann Sensor.db sowie IOs.json und Machine.json lesen und verändern. Schreibzugriffe sind in der Grafik mit W gekennzeichnet.'],protocols:[],open:'Zugriffsprotokolle, Berechtigungen und Synchronisierung sind noch nicht spezifiziert.'},
+{id:'tooly',name:'Tooly',layer:'ai',summary:'KI-Funktionen als eigenständiger Dienst.',details:['Stellt anderen Tools KI-Funktionalität über gRPC zur Verfügung.','Tooly Companion ist in Tooly integriert und wird nicht als separates Tool geführt.','Arbeitet lokal über llama.cpp.','Die Anbindung leistungsfähigerer Cloudmodelle per API ist noch nicht integriert.'],protocols:['gRPC','API (Cloud, geplant)']},
+{id:'brewlab',name:'BrewLab',layer:'app',summary:'Testpläne, Profile & Abläufe.',details:['Testpläne, Profile und Abläufe erstellen und ausführen (aus der Bildvorlage).','DeviceGateway- und Tooly-Anbindungen sind noch nicht vollständig umgesetzt.'],protocols:['gRPC']},
+{id:'labassist',name:'LabAssist',layer:'app',summary:'Hardware-Workflows & Prüfabläufe.',details:['Hardware-Workflows und Prüfabläufe erstellen und steuern (aus der Bildvorlage).','DeviceGateway- und Tooly-Anbindungen sind noch nicht vollständig umgesetzt.'],protocols:['gRPC']},
+{id:'livedata',name:'LiveData',layer:'app',summary:'Live-Daten erfassen & visualisieren.',details:['Erfasst, überwacht und visualisiert Live-Daten; entspricht LiveScope in der Bildvorlage.','Nutzt DeviceGateway und MachineController.','Legt Messwerte in einem Messdatenspeicher ab, z. B. InfluxDB. Der gemeinsame Datenpfad mit AnalyzeLab ist noch nicht vollständig umgesetzt.'],protocols:['gRPC'],open:'„LiveData“ ist zugleich ein genannter Protokollname am DeviceGateway; Anwendung und Protokoll sind getrennt zu betrachten.'},
+{id:'telemetry',name:'TelemetryAgent',layer:'app',summary:'Mobile Datenerfassung im Feld.',details:['Mobile Datenerfassung im Feld über Netzwerk, CAN und LTE (aus der Bildvorlage).','Geplante bzw. noch nicht vollständig umgesetzte Anbindung an EnterpriseGateway über gRPC.','Greift auf IOs.json und Machine.json zu.'],protocols:['gRPC'],open:'Die EnterpriseGateway-Anbindung ist noch nicht vollständig umgesetzt.'},
+{id:'logbase',name:'LogBase',layer:'app',summary:'Datenbanken & Logfiles analysieren.',details:['Analysiert und vergleicht Datenbanken und Logfiles (aus der Bildvorlage).','Bezieht den Maschinen-Dateizugriff über MachineController.','Nutzt bereits Tooly für KI-Funktionen.'],protocols:['gRPC']},
+{id:'eventinsight',name:'EventInsight',layer:'app',summary:'Ereignisdaten auswerten.',details:['Ist mit EventMDS.db verbunden.'],protocols:[],open:'Der konkrete Datenbankzugriff ist noch nicht spezifiziert.'},
+{id:'analyze',name:'AnalyzeLab',layer:'app',summary:'Messdaten analysieren & versionieren.',details:['Messdatenmanagement zum Verarbeiten, Analysieren und Versionieren von Messdaten.','Keine direkte Verbindung zu DeviceGateway, MachineController oder EnterpriseGateway.','Separater Datenbankzugriff, z. B. auf den auch von LiveData verwendeten InfluxDB-Speicher; noch nicht vollständig umgesetzt.'],protocols:[],open:'Datenbankschnittstelle und Versionierungsmechanismus sind noch nicht spezifiziert.'},
+{id:'robo',name:'RoboControl',layer:'app',summary:'Roboterbefehle steuern & verarbeiten.',details:['Übernimmt Ansteuerung und Verarbeitung von Roboterbefehlen.','DeviceGateway-Anbindung noch nicht vollständig umgesetzt.'],protocols:['gRPC']},
+{id:'brewlytics',name:'Brewlytics',layer:'app',summary:'Telemetrie in Standard-Dashboards.',details:['Wertet Telemetriedaten aus und stellt standardisierte Dashboards bereit.','EnterpriseGateway-Anbindung noch nicht vollständig umgesetzt.'],protocols:['gRPC']},
+{id:'project',name:'ProjectLens',layer:'app',summary:'Projektdaten verständlich strukturieren.',details:['Bereitet Daten aus SQVPs, Kleinprojekten und Sprints strukturiert auf.','Fragt beispielsweise Polarion-Daten über EnterpriseGateway ab.'],protocols:['gRPC']},
+{id:'device',name:'DeviceGateway',layer:'gateway',summary:'Geräteprotokolle → einheitliches gRPC.',details:['Kommuniziert mit Kaffeemaschinen, Messgeräten, Sensoren, Robotern und CANAnalyzer.','Mappt oder wrappt die verschiedenen Geräteprotokolle auf eine gRPC-Schnittstelle für weiterverarbeitende Anwendungen.'],protocols:['gRPC','NGX','CMRemote','RemoteAPI','LiveData','Modbus','CAN','USB']},
+{id:'machine',name:'MachineController',layer:'gateway',summary:'Dateisysteme & Maschinendaten.',details:['Liest und steuert Dateisysteme von Kaffeemaschinen.','Ermöglicht das Auslesen von Datenbanken und Logfiles sowie bei Bedarf Dateiuploads.','Stellt diese Funktionen anderen Tools über gRPC bereit.'],protocols:['gRPC','SFTP','FTP','SCP']},
+{id:'enterprise',name:'EnterpriseGateway',layer:'gateway',summary:'Enterprise- & künftig Telemetriedaten.',details:['Stellt Enterprise-Daten anderen Anwendungen über gRPC bereit.','Polarion ist aktuell über REST API angebunden.','SAP und SharePoint sind zukünftige Erweiterungen.','Azure-Telemetrie soll zukünftig über KQL-Abfragen eingebunden werden.'],protocols:['gRPC','REST API (Polarion)','KQL (Azure, geplant)'],open:'SAP- und SharePoint-Schnittstellen sind offen. KQL bezeichnet die Abfragesprache; der konkrete Azure-Zugriff ist noch zu definieren.'},
+{id:'influx',name:'Messdatenspeicher',layer:'data',summary:'Separater Datenpfad, z. B. InfluxDB.',details:['LiveData legt Messwerte ab. AnalyzeLab soll auf diese Daten zugreifen.','Als Datenbank ist z. B. InfluxDB vorgesehen; die Integration ist noch nicht vollständig umgesetzt.'],protocols:[],open:'Konkretes Datenbankprodukt, Schema und Zugriffsprotokoll sind zu bestätigen.'}
+],links:[['brewlab','device','planned','gRPC'],['labassist','device','planned','gRPC'],['livedata','device','active','gRPC'],['livedata','machine','active','gRPC'],['logbase','machine','active','gRPC'],['robo','device','planned','gRPC'],['brewlytics','enterprise','planned','gRPC'],['project','enterprise','active','gRPC'],['logbase','tooly','active','gRPC'],['livedata','tooly','planned','gRPC'],['brewlab','tooly','planned','gRPC'],['labassist','tooly','planned','gRPC'],['livedata','influx','planned','Messdaten schreiben · Protokoll offen'],['analyze','influx','planned','Messdaten lesen · Protokoll offen']]};
+seed.tools.push(
+{id:'labassist-db',name:'LabAssist.db',layer:'data',summary:'Von LabAssist verwalteter Datenbestand.',details:['LabAssist verwaltet diese Datenbank.','LiveData liest Informationen aus LabAssist.db.'],protocols:[],open:'Der konkrete Datenbankzugriff ist nicht spezifiziert.'},
+{id:'sensor-db',name:'Sensor.db',layer:'data',summary:'Zentraler Sensorbestand.',details:['Zentrale Sensordatenbank, deren Bestand Toolbox Core verwaltet. MachineCenter kann den Bestand ebenfalls verändern.','LabAssist, LiveData und LogBase greifen auf Sensor.db zu.'],protocols:[],open:'Der konkrete technische Zugriffsweg ist nicht angegeben; eine gRPC-Verbindung wird nicht vorausgesetzt.'},
+{id:'core-db',name:'ToolboxCore.db',layer:'data',summary:'Zentraler Toolbox-Core-Datenbestand.',details:['Datenbank innerhalb der zentral verwalteten Bestände.','Toolbox AccessBridge greift auf diesen Datenbestand zu.'],protocols:[],open:'Der konkrete Datenbankzugriff von Toolbox AccessBridge ist noch nicht spezifiziert.'},
+{id:'machine-files',name:'IOs.json & Machine.json',layer:'data',summary:'Gemeinsame IO- und Maschinenlisten.',details:['Zentral verwaltete Dateien IOs.json und Machine.json.','LabAssist, LiveData, TelemetryAgent, BrewLab und LogBase greifen auf beide Dateien zu.'],protocols:[],open:'Toolbox Core kann neue Werkdaten schreiben. MachineCenter kann diese Dateien lesen und verändern. Der konkrete Zugriffspfad und die Rechte weiterer Tools sind offen.'}
+);
+seed.tools.push(
+{id:'hydraulic-schema-db',name:'Hydraulik-Schema-Datenbank',layer:'data',summary:'Datenbank für Hydraulik-Schemata.',details:['Datenbestand für Hydraulik-Schemata.','Geplante Anbindung an Tooly und MachineCenter.'],protocols:[],open:'Die konkreten Zugriffswege sind noch nicht spezifiziert.'},
+{id:'electrical-schema-db',name:'Elektro-Schema-Datenbank',layer:'data',summary:'Datenbank für Elektro-Schemata.',details:['Datenbestand für Elektro-Schemata.','Geplante Anbindung an Tooly und MachineCenter.'],protocols:[],open:'Die konkreten Zugriffswege sind noch nicht spezifiziert.'},
+{id:'eventmds-db',name:'EventMDS.db',layer:'data',summary:'Datenbank für Ereignisdaten.',details:['Mit EventInsight verbunden.','Geplante Anbindung an LogBase und Tooly.'],protocols:[],open:'Die konkreten Zugriffswege sind noch nicht spezifiziert.'}
+);
+['labassist','livedata','logbase'].forEach(id=>seed.links.push([id,'sensor-db','active','Zugriff auf Sensor.db · Zugriffsweg offen']));
+['labassist','livedata','telemetry','brewlab','logbase'].forEach(id=>seed.links.push([id,'machine-files','active','Zugriff auf IOs.json und Machine.json · Zugriffsweg offen']));
+['hydraulic-schema-db','electrical-schema-db'].forEach(id=>{seed.links.push(['tooly',id,'planned','Geplante Verbindung · Zugriffsweg offen'],['center',id,'planned','Geplante Verbindung · Zugriffsweg offen']);});
+seed.links.push(['eventinsight','eventmds-db','active','Verbindung · Zugriffsweg offen'],['logbase','eventmds-db','planned','Geplante Verbindung · Zugriffsweg offen'],['tooly','eventmds-db','planned','Geplante Verbindung · Zugriffsweg offen']);
+seed.links.push(['telemetry','enterprise','planned','gRPC']);
+// Schreibbeziehungen sind fachlich getrennt von den allgemeinen Zugriffsbeziehungen hinterlegt.
+['sensor-db','core-db','machine-files'].forEach(id=>seed.links.push(['core',id,'active','W · Bestand verwalten und neue Werkdaten schreiben · Zugriffsweg offen']));
+['sensor-db','machine-files'].forEach(id=>seed.links.push(['center',id,'active','R/W · Lesen und Schreiben · Zugriffsweg offen']));
+// Rechteabfragen bleiben eigene Beziehungen: Ihr Umsetzungsstatus hängt vom jeweiligen anfragenden Tool ab.
+seed.tools.push({id:'access',name:'Toolbox AccessBridge',layer:'security',summary:'Security: Nutzerrechte für Tools bereitstellen.',details:['Eigenständiger Security-Dienst auf derselben Ebene wie Toolbox Core.','Greift auf ToolboxCore.db zu.','Die angebundenen Tools fragen ab, welche Nutzerrechte dem jeweiligen User zur Verfügung stehen.','AnalyzeLab, ProjectLens und RoboControl sind geplant bzw. noch nicht vollständig angebunden.'],protocols:[],open:'Die Schnittstelle für Rechteabfragen und der technische Zugriff auf ToolboxCore.db sind noch nicht spezifiziert.'});
+seed.links.push(['access','core-db','active','Zugriff auf ToolboxCore.db · Zugriffsweg offen']);
+['analyze','brewlab','brewlytics','labassist','livedata','logbase','center','project','robo','telemetry'].forEach(id=>seed.links.push([id,'access',['analyze','project','robo'].includes(id)?'planned':'active','Nutzerrechte abfragen · Schnittstelle offen']));
+// Laufzeit und Cloud-Anbindung sind KI-Backends, keine zusätzlichen Anwender-Tools.
+seed.tools.push(
+{id:'llama-local',name:'llama.cpp',layer:'backend',summary:'Lokale KI-Inferenz.',details:['Tooly kann KI-Modelle lokal über llama.cpp ausführen.'],protocols:[],open:'Der konkrete lokale Aufrufmechanismus ist nicht spezifiziert.'},
+{id:'cloud-models',name:'Cloudmodelle',layer:'backend',summary:'Leistungsfähigere KI-Modelle per API.',details:['Tooly soll Daten über eine API an leistungsfähigere Cloudmodelle weitergeben können.','Die Cloud-Anbindung ist noch nicht integriert und wird gestrichelt dargestellt.'],protocols:['API (geplant)']}
+);
+seed.links.push(['tooly','llama-local','active','Lokale KI-Inferenz über llama.cpp'],['tooly','cloud-models','planned','API · noch nicht integriert']);
+// Der CM-Datenpfad führt von TelemetryAgent über ein eigenes Gateway in den Cloud-Datenbestand.
+seed.tools.push(
+{id:'cm',name:'CMGateway',layer:'gateway',summary:'Sendet Daten in die Digitale Plattform.',details:['Gateway auf derselben Ebene wie DeviceGateway, MachineController und EnterpriseGateway.','Kommuniziert mit TelemetryAgent.','Sendet Daten an die Digitale Plattform als Cloud-Datenspeicher.'],protocols:[],open:'Die Schnittstelle zu TelemetryAgent und das Übertragungsprotokoll zur Digitalen Plattform sind noch nicht spezifiziert.'},
+{id:'digital-platform',name:'Digitale Plattform',layer:'data',summary:'Cloud-Datenspeicher.',details:['Cloudbasierter Datenbestand der Digitalen Plattform.','Empfängt Daten von CMGateway.'],protocols:[],open:'Konkreter Cloud-Dienst und Übertragungsprotokoll sind noch nicht spezifiziert.'}
+);
+seed.links.push(['telemetry','cm','active','Kommunikation mit CMGateway · Schnittstelle offen'],['cm','digital-platform','active','Daten an die Digitale Plattform senden · Protokoll offen']);
+seed.tools.find(tool=>tool.id==='telemetry').details.push('Kommuniziert mit CMGateway, das Daten an die Digitale Plattform in der Cloud sendet.');
+// Verwaltung und lesender Zugriff bleiben getrennte Beziehungen ohne Annahme eines technischen Protokolls.
+seed.links.push(['labassist','labassist-db','active','Datenbank verwalten · Zugriffsweg offen'],['livedata','labassist-db','active','R · Informationen lesen · Zugriffsweg offen']);
+seed.tools.find(tool=>tool.id==='labassist').details.push('Verwaltet LabAssist.db.');
+seed.tools.find(tool=>tool.id==='livedata').details.push('Liest Informationen aus LabAssist.db.');
+const storageKey='toolbox-landscape-v1';let model=structuredClone(seed),selected=null;const layerNames={app:'Anwender-Tool',gateway:'Gateway',ai:'KI-Dienst',management:'Verwaltung',security:'Security',backend:'KI-Backend',data:'Datenspeicher'};
+const escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+// Importierte Daten werden vor der Übernahme geprüft; Text wird beim Rendern konsequent als Inhalt behandelt.
+function validate(data){if(!data||!Array.isArray(data.tools)||!Array.isArray(data.links)||data.tools.length>300||data.links.length>2000)throw Error('Ungültiges Katalogformat.');const ids=new Set();for(const tool of data.tools){if(!tool||typeof tool.id!=='string'||!/^[-\w]+$/.test(tool.id)||ids.has(tool.id)||typeof tool.name!=='string'||typeof tool.summary!=='string'||!layerNames[tool.layer]||!Array.isArray(tool.details)||!tool.details.every(x=>typeof x==='string')||!Array.isArray(tool.protocols)||!tool.protocols.every(x=>typeof x==='string')||(tool.open!==undefined&&typeof tool.open!=='string'))throw Error('Ungültiger oder doppelter Tooleintrag.');ids.add(tool.id);}for(const tool of seed.tools)if(!ids.has(tool.id))throw Error('Die Basis-Tools müssen erhalten bleiben.');for(const link of data.links)if(!Array.isArray(link)||link.length!==4||!ids.has(link[0])||!ids.has(link[1])||link[0]===link[1]||!['active','planned'].includes(link[2])||typeof link[3]!=='string')throw Error('Ungültige Verbindung.');return data;}
+try{const saved=localStorage.getItem(storageKey);if(saved){const previous=JSON.parse(saved);if(Array.isArray(previous.tools)&&Array.isArray(previous.links)){previous.tools=previous.tools.filter(tool=>tool.id!=='center-db');previous.links=previous.links.filter(link=>link[0]!=='center-db'&&link[1]!=='center-db');for(const tool of seed.tools){const current=previous.tools.find(item=>item.id===tool.id);if(!current)previous.tools.push(structuredClone(tool));else if(['labassist-db','labassist','livedata','core','center','sensor-db','machine-files','telemetry','core-db','access','tooly','llama-local','cloud-models','cm','digital-platform'].includes(tool.id))Object.assign(current,structuredClone(tool));}for(const link of seed.links.filter(item=>['labassist-db','sensor-db','machine-files','eventmds-db'].includes(item[1])||item[0]==='core'||item[0]==='telemetry'&&item[1]==='enterprise'||item[0]==='access'||item[1]==='access'||item[0]==='tooly'&&['llama-local','cloud-models'].includes(item[1])||item[1]==='cm'||item[1]==='digital-platform')){const index=previous.links.findIndex(item=>item[0]===link[0]&&item[1]===link[1]);if(index<0)previous.links.push([...link]);else if(link[0]==='telemetry'&&link[1]==='enterprise'||link[0]==='access'||link[1]==='access'||link[0]==='tooly'&&['llama-local','cloud-models'].includes(link[1])||link[1]==='cm'||link[1]==='digital-platform')previous.links[index]=[...link];}}model=validate(previous);}}catch{model=structuredClone(seed);}
+// Neue Basisdatenbanken und ihre geplanten Leitungen werden auch in vorhandene lokale Kataloge übernommen.
+for(const tool of seed.tools.filter(item=>['hydraulic-schema-db','electrical-schema-db'].includes(item.id))){const current=model.tools.find(item=>item.id===tool.id);if(current)Object.assign(current,structuredClone(tool));else model.tools.push(structuredClone(tool));}
+for(const link of seed.links.filter(item=>['hydraulic-schema-db','electrical-schema-db'].includes(item[1]))){const index=model.links.findIndex(item=>item[0]===link[0]&&item[1]===link[1]);if(index<0)model.links.push([...link]);else model.links[index]=[...link];}
+function notify(message){const toast=document.querySelector('#toast');toast.textContent=message;toast.hidden=false;clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.hidden=true,4500);}
+function save(){try{localStorage.setItem(storageKey,JSON.stringify(model));}catch{notify('Lokale Speicherung fehlgeschlagen. Bitte JSON exportieren.');}render();}
+
+// Auswahl, Hervorhebung und Detailfenster haben einen gemeinsamen Zustand. Jeder Rückweg setzt ihn vollständig zurück.
+function selectTool(id){
+ if(!model.tools.some(tool=>tool.id===id))return;
+ if(graphFocus===id){showOverview();return;}
+ selected=id;graphFocus=id;render();
+}
+function showOverview(){selected=null;graphFocus=null;render();}
+function render(){
+ updateExportLinks();document.querySelector('#marketing-toggle').classList.toggle('active',marketingEnabled);document.querySelector('#marketing-toggle').setAttribute('aria-pressed',String(marketingEnabled));
+ const detail=document.querySelector('#detail');detail.classList.toggle('hidden',!graphFocus);
+ document.querySelector('#overview').classList.toggle('active',!graphFocus);
+ document.querySelector('#overview').setAttribute('aria-pressed',String(!graphFocus));
+ if(graphFocus){selected=graphFocus;renderDetail();}else detail.innerHTML='';
+ renderGraph();
+}
+function renderDetail(){
+ const tool=model.tools.find(item=>item.id===selected);if(!tool)return;
+ const links=model.links.filter(link=>link[0]===tool.id||link[1]===tool.id);
+ document.querySelector('#detail').innerHTML=`<button class="close-detail" data-overview aria-label="Details schließen und Gesamtansicht anzeigen">×</button><div class="eyebrow">${layerNames[tool.layer]}</div><h2>${escapeHtml(tool.name)}</h2><p class="lead">${escapeHtml(tool.summary)}</p><h3>Funktion</h3><ul>${tool.details.map(detail=>`<li>${escapeHtml(detail)}</li>`).join('')}</ul>${tool.protocols.length?`<h3>Schnittstellen / Protokolle</h3><div class="tags">${tool.protocols.map(protocol=>`<span>${escapeHtml(protocol)}</span>`).join('')}</div>`:''}<h3>Verbindungen · ${links.length}</h3>${links.length?links.map(link=>{const target=model.tools.find(item=>item.id===(link[0]===tool.id?link[1]:link[0]));return `<div class="connection"><button data-tool="${escapeHtml(target.id)}">${escapeHtml(target.name)} ↗</button><small><span class="status-line ${link[2]==='planned'?'planned':''}"></span>${link[2]==='active'?'Bestehend':'Geplant / teilweise umgesetzt'}<br>${escapeHtml(link[3])}</small></div>`;}).join(''):'<p class="lead">Keine Verbindung spezifiziert.</p>'}${tool.open?`<h3>Noch zu klären</h3><p class="notice">${escapeHtml(tool.open)}</p>`:''}<button class="subtle-button" id="add-link">+ Verbindung ergänzen</button>`;
+}
+// Toolkarten und Detail-Verknüpfungen verwenden denselben Auswahlpfad; Hintergrundklick und Schließen führen zurück.
+document.addEventListener('click',event=>{
+ const tool=event.target.closest('[data-tool]');if(tool){selectTool(tool.dataset.tool);return;}
+ if(event.target.closest('[data-overview]')){showOverview();return;}
+ const close=event.target.closest('[data-close]');if(close){document.getElementById(close.dataset.close).close();return;}
+ if(event.target.id==='add-link'){fillTargets('link-target',selected);document.querySelector('#link-editor').showModal();return;}
+ if(event.target.closest('#graph-surface'))showOverview();
+});
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape'&&!document.querySelector('dialog[open]'))showOverview();
+ if(event.target.matches('.graph-node')&&(event.key==='Enter'||event.key===' ')){event.preventDefault();selectTool(event.target.dataset.tool);}
+});
+document.querySelector('#overview').onclick=showOverview;
+function closeMenu(){document.querySelector('#edit-menu').open=false;}
+function fillTargets(id,exclude){document.getElementById(id).innerHTML=(exclude?'':'<option value="">Keine Verbindung</option>')+model.tools.filter(tool=>tool.id!==exclude).map(tool=>`<option value="${escapeHtml(tool.id)}">${escapeHtml(tool.name)}</option>`).join('');}
+document.querySelector('#add').onclick=()=>{closeMenu();fillTargets('target');document.querySelector('#editor').showModal();};
+document.querySelector('#tool-form').onsubmit=event=>{
+ event.preventDefault();const form=new FormData(event.target),name=form.get('name').trim();if(!name)return;
+ const id='custom-'+crypto.randomUUID();model.tools.push({id,name,layer:form.get('layer'),summary:form.get('summary').trim(),details:[form.get('function').trim()||form.get('summary').trim()],protocols:form.get('protocol').trim()?[form.get('protocol').trim()]:[]});
+ if(form.get('target'))model.links.push([id,form.get('target'),form.get('status'),form.get('protocol').trim()||'offen']);
+ selected=id;graphFocus=id;save();document.querySelector('#editor').close();event.target.reset();notify('Tool ergänzt.');
+};
+document.querySelector('#link-form').onsubmit=event=>{
+ event.preventDefault();const form=new FormData(event.target),target=form.get('target');
+ if(model.links.some(link=>(link[0]===selected&&link[1]===target)||(link[1]===selected&&link[0]===target))){notify('Diese Verbindung existiert bereits.');return;}
+ model.links.push([selected,target,form.get('status'),form.get('protocol').trim()]);save();document.querySelector('#link-editor').close();notify('Verbindung ergänzt.');
+};
+document.querySelector('#export').onclick=()=>{closeMenu();download(new Blob([JSON.stringify(model,null,2)],{type:'application/json'}),'toolbox-landscape.json');};
+document.querySelector('#import').onclick=()=>{closeMenu();document.querySelector('#file').click();};
+document.querySelector('#file').onchange=async event=>{const file=event.target.files[0];if(!file)return;try{if(file.size>2000000)throw Error('Datei ist zu groß.');const imported=validate(JSON.parse(await file.text()));if(!confirm('Den lokalen Katalog durch diese JSON-Datei ersetzen?'))return;model=imported;selected=null;graphFocus=null;save();notify('Katalog importiert.');}catch(error){notify('Import fehlgeschlagen: '+error.message);}event.target.value='';};
+
+function exportFileName(type){return (marketingEnabled?'Toolbox-Factsheet':'Toolbox-Toollandschaft')+'.'+type;}
+function updateExportLinks(){for(const type of ['png','svg']){const link=document.querySelector('#download-'+type);link.href='./toolbox-'+(marketingEnabled?'marketing':'architektur')+'.'+type;link.download=exportFileName(type);}}
+document.querySelector('#marketing-toggle').onclick=()=>{marketingEnabled=!marketingEnabled;try{localStorage.setItem('toolbox-marketing-enabled',String(marketingEnabled));}catch{}render();};
+function attachDownload(url,name){
+ const anchor=document.createElement('a');anchor.href=url;anchor.download=name;anchor.rel='noopener';anchor.hidden=true;
+ // Ein im Dokument verankerter Link bleibt auch in Browsern nutzbar, die Klicks auf losgelöste Elemente ignorieren.
+ document.body.appendChild(anchor);anchor.click();anchor.remove();
+}
+function download(blob,name){const url=URL.createObjectURL(blob);attachDownload(url,name);setTimeout(()=>URL.revokeObjectURL(url),60000);}
+function modelSignature(data){
+ // Die Reihenfolge lokal gespeicherter Einträge beeinflusst nicht, ob die veröffentlichte Grafik noch zum Katalog passt.
+ return JSON.stringify({tools:data.tools.map(tool=>[tool.id,tool.name,tool.layer,tool.summary,tool.details,tool.protocols,tool.open||'']).sort((first,second)=>first[0].localeCompare(second[0])),links:data.links.map(link=>[...link]).sort((first,second)=>JSON.stringify(first).localeCompare(JSON.stringify(second)))});
+}
+function serializeOverview(){
+ const previous=graphFocus;
+ try{
+  graphFocus=null;renderGraph();const clone=document.querySelector('#graph-surface svg').cloneNode(true),box=clone.viewBox.baseVal;
+  clone.setAttribute('width',String(box.width));clone.setAttribute('height',String(box.height));
+  return {svg:new XMLSerializer().serializeToString(clone),width:box.width,height:box.height};
+ }finally{graphFocus=previous;renderGraph();}
+}
+function svgToPng(snapshot){
+ return new Promise((resolve,reject)=>{
+  const image=new Image(),url=URL.createObjectURL(new Blob([snapshot.svg],{type:'image/svg+xml;charset=utf-8'}));
+  image.onload=()=>{
+   try{
+    // Doppelte Auflösung hält Symbole und Beschriftungen auch für Factsheets und Präsentationen lesbar.
+    const canvas=document.createElement('canvas');canvas.width=snapshot.width*2;canvas.height=snapshot.height*2;
+    const context=canvas.getContext('2d');if(!context)throw Error('PNG-Erzeugung ist in diesem Browser nicht verfügbar.');
+    context.fillStyle='#ffffff';context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(image,0,0,canvas.width,canvas.height);
+    canvas.toBlob(blob=>blob?resolve(blob):reject(Error('PNG konnte nicht erzeugt werden.')),'image/png');
+   }catch(error){reject(error);}finally{URL.revokeObjectURL(url);}
+  };
+  image.onerror=()=>{URL.revokeObjectURL(url);reject(Error('Die Grafik konnte für den PNG-Export nicht geladen werden.'));};image.src=url;
+ });
+}
+let exportUrl=null;
+async function exportGraphic(event,type){
+ // Ohne lokale Änderungen wird der echte Dateilink direkt durch den Browser geöffnet: kein Blob und kein asynchroner Klick nötig.
+ if(modelSignature(model)===modelSignature(seed))return;
+ event.preventDefault();const dialog=document.querySelector('#export-dialog'),ready=document.querySelector('#prepared-download');
+ if(dialog.open)return;if(exportUrl){URL.revokeObjectURL(exportUrl);exportUrl=null;}
+ ready.hidden=true;document.querySelector('#export-title').textContent=type.toUpperCase()+' exportieren';document.querySelector('#export-status').textContent='Aktuelle Grafik wird erstellt …';dialog.showModal();
+ try{
+  const snapshot=serializeOverview(),blob=type==='png'?await svgToPng(snapshot):new Blob([snapshot.svg],{type:'image/svg+xml;charset=utf-8'});
+  exportUrl=URL.createObjectURL(blob);ready.href=exportUrl;ready.download=exportFileName(type);ready.hidden=false;
+  document.querySelector('#export-status').textContent='Die vollständige Grafik mit deinen lokalen Ergänzungen ist bereit.';
+  // Der abschließende echte Benutzerklick erhält die Download-Berechtigung auch nach einer asynchronen PNG-Erzeugung.
+ }catch(error){document.querySelector('#export-status').textContent=error.message+' Die veröffentlichte Version kannst du über den Dateilink öffnen.';ready.href='./toolbox-'+(marketingEnabled?'marketing':'architektur')+'.'+type;ready.download=exportFileName(type);ready.textContent='Veröffentlichte Version herunterladen';ready.hidden=false;}
+}
+document.querySelector('#download-png').onclick=event=>exportGraphic(event,'png');
+document.querySelector('#download-svg').onclick=event=>exportGraphic(event,'svg');
+document.querySelector('#export-dialog').addEventListener('close',()=>{if(exportUrl){URL.revokeObjectURL(exportUrl);exportUrl=null;}document.querySelector('#prepared-download').textContent='Datei herunterladen';});
+
+let graphFocus=null,marketingEnabled=false;
+try{marketingEnabled=localStorage.getItem('toolbox-marketing-enabled')==='true';}catch{}
+
+const graphPalette={'labassist-db':'#a68126',cm:'#168c89','digital-platform':'#168c89',access:'#b24773',device:'#177d97',machine:'#3c5db4',enterprise:'#c47722',tooly:'#813bb0',influx:'#438357','sensor-db':'#a68126','machine-files':'#a68126',data:'#438357'};
+// Alle Symbole bestehen aus Vektorpfaden: Sie bleiben beim Drucken und im SVG-Export ohne Qualitätsverlust erhalten.
+function graphIcon(kind,x,y,size,color){
+ const shapes={
+ people:'<circle cx="11" cy="8" r="5"/><circle cx="25" cy="9" r="4"/><path d="M2 30V22c0-9 18-9 18 0v8zM22 17c7-2 10 2 10 7v6h-8"/>',
+ headset:'<path d="M4 18v-4a12 12 0 0 1 24 0v4M4 17H1v10h6V17zM28 17h3v10h-6V17zM28 27c0 5-7 4-12 4"/>',
+ target:'<circle cx="15" cy="18" r="12"/><circle cx="15" cy="18" r="7"/><path d="m15 18 14-15M23 4h6v6"/>',
+ network:'<circle cx="16" cy="4" r="3"/><circle cx="5" cy="27" r="3"/><circle cx="27" cy="27" r="3"/><circle cx="16" cy="17" r="3"/><path d="M16 7v7M14 20 7 24M18 20l7 4M6 24l7-17M26 24 19 7"/>',
+ puzzle:'<path d="M2 5h9c-4-8 12-8 8 0h11v9c-8-4-8 12 0 8v9H19c4-8-12-8-8 0H2V20c8 4 8-12 0-8z"/>',
+ rocket:'<path d="M10 22C6 12 16 2 30 2c0 14-10 24-20 20zM10 12H3l-2 9h9M20 22v8l-9 2v-9M6 25l-4 5"/><circle cx="22" cy="10" r="3"/>',
+ 
+ cloudStorage:'<path d="M7 19H6a6 6 0 0 1-1-12 9 9 0 0 1 17-3 7 7 0 0 1 6 11h-2"/><ellipse cx="17" cy="18" rx="10" ry="3"/><path d="M7 18v10c0 4 20 4 20 0V18M7 23c0 4 20 4 20 0"/>',
+ shield:'<path d="M16 2 29 7v9c0 8-8 13-13 15C11 29 3 24 3 16V7z"/><rect x="10" y="14" width="12" height="10" rx="2"/><path d="M12 14v-3a4 4 0 0 1 8 0v3M16 18v3"/>',
+ database:'<ellipse cx="16" cy="6" rx="12" ry="4"/><path d="M4 6v20c0 5 24 5 24 0V6M4 13c0 5 24 5 24 0M4 20c0 5 24 5 24 0"/>',
+ files:'<path d="M6 2h13l7 7v21H6zM19 2v8h7M11 16h10M11 21h10M11 26h7"/>',
+ cube:'<path d="m16 2 13 7v14l-13 7L3 23V9zM3 9l13 8 13-8M16 17v13M10 6l13 8"/>',
+ server:'<rect x="3" y="3" width="26" height="8" rx="2"/><rect x="3" y="13" width="26" height="8" rx="2"/><rect x="3" y="23" width="26" height="7" rx="2"/><path d="M8 7h1M8 17h1M8 26h1M17 7h7M17 17h7M17 26h7"/>',
+ ai:'<path d="M13 5C5 1 2 9 6 13c-6 5-2 13 4 12 0 5 6 6 6 1V7c0-4-4-5-5-1M19 5c8-4 11 4 7 8 6 5 2 13-4 12 0 5-6 6-6 1M7 13h4l2 5M24 13h-4l-2 5M9 24l3-2M24 24l-4-2"/>',
+ coffee:'<path d="M4 12h20v10a7 7 0 0 1-7 7h-6a7 7 0 0 1-7-7zM24 14h3c6 0 5 10-3 10M2 31h25M10 2v5M17 2v5"/>',
+ lab:'<path d="M11 2h10M13 2v10L4 26c-2 3 0 5 3 5h18c3 0 5-2 3-5l-9-14V2M9 21h14M13 25h1M19 28h1"/>',
+ live:'<rect x="2" y="4" width="28" height="22" rx="3"/><path d="M5 16h5l3-7 5 13 3-6h6M16 26v5M10 31h12"/>',
+ robot:'<path d="M3 30h25M7 30v-6l10-7-4-7 8-6M21 4l6 2-1 6M17 17l7 6M24 23l4-3M24 23l2 5"/><circle cx="13" cy="10" r="3"/><circle cx="17" cy="17" r="3"/>',
+ telemetry:'<path d="M5 10a16 16 0 0 1 22 0M9 14a10 10 0 0 1 14 0M13 18a4 4 0 0 1 6 0M16 22v8M8 30h16"/><circle cx="16" cy="22" r="2"/>',
+ chart:'<path d="M4 2v27h26M9 23v-7M16 23V9M23 23V4M7 10l8-5 8-3"/>',
+ project:'<rect x="3" y="5" width="26" height="25" rx="3"/><path d="M10 2v6M22 2v6M3 12h26M8 18h4M16 18h8M8 24h4M16 24h8"/>',
+ gateway:'<rect x="2" y="19" width="28" height="11" rx="3"/><path d="M8 19v-5M24 19v-5M10 8a9 9 0 0 1 12 0M6 4a15 15 0 0 1 20 0M15 12h2M7 25h1M13 25h1M20 25h5"/>',
+ coffeeMachine:'<rect x="6" y="2" width="20" height="28" rx="2"/><path d="M6 9h20M10 5h2M18 5h4M11 14h10M16 14v5M11 21h10v5H11zM3 30h26"/>',
+ sensor:'<circle cx="16" cy="16" r="4"/><path d="M10 8a10 10 0 0 0 0 16M22 8a10 10 0 0 1 0 16M6 4a16 16 0 0 0 0 24M26 4a16 16 0 0 1 0 24"/>',
+ measure:'<rect x="2" y="5" width="28" height="23" rx="2"/><path d="M6 17h5l3-7 5 13 3-6h5M7 31h18"/>',
+ cloud:'<path d="M9 26h16c9 0 9-14 1-15C24 1 10 0 7 12c-9 0-9 14 2 14M16 15v15M11 25l5 5 5-5"/>',
+ api:'<path d="m10 7-8 9 8 9M22 7l8 9-8 9M19 3l-6 26"/>'
+ };
+ return `<g transform="translate(${x} ${y}) scale(${size/32})" fill="none" stroke="${color}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${shapes[kind]||shapes.cube}</g>`;
+}
+
+
+
+// Prozentwerte werden in Hundertstel-Prozentpunkten gespeichert. Gruppensummen bleiben dadurch exakt auf Basis der gerundeten Eingangstabellen.
+const departmentRows=[
+ ['Analytics',193,31,111],['Labor',19743,3212,2904],['Produktion',42,7,null],['Service D',367,60,null],
+ ['Software',5437,885,2035],['Sonstiges',38,6,null],['Vorentwicklung',4003,651,848],['#NV',315,51,null],['(Leer)',0,0,null],
+ ['Labor Schaerer',410,67,null],['Qualität Reklamation',4419,719,334],['Global Tech Support',4002,651,524],
+ ['Support Deutschland',3038,494,298],['Support Schaerer',3,0,null],['Konstruktion',1365,222,1024],
+ ['Prüfstand',85,14,null],['Produkt Management',410,67,26],['Konstruktion Nachentwicklung',103,17,null],
+ ['Projektleitung',21,3,null],['Technical Key Account',3,0,null],['Zugriffsversuch',2,0,null],['Zulassung',31,5,null],
+ ['R&D Büro',4,1,null],['Elektronik',36,6,null],['Student',45,7,null],['Qualität Softwaretesting',10125,1647,872],
+ ['Qualität Sonstiges',113,18,42],['Werkstatt',11,2,5],['Ausbildung_Studium',60,10,18],['Qualität Dauerlauf',7036,1145,958]
+].map(([name,oldCount,oldShare,newShare])=>({name,oldCount,oldShare,newShare}));
+function groupedDepartments(){
+ const definitions=[
+  {name:'Labor',icon:'lab',color:'#2342a2',members:['Labor','Labor Schaerer'],notes:['Labor + Labor Schaerer']},
+  {name:'Software',icon:'api',color:'#315a91',members:['Software'],notes:['Softwareentwicklung']},
+  {name:'Vorentwicklung',icon:'rocket',color:'#177d97',members:['Vorentwicklung'],notes:['Vorentwicklung']},
+  {name:'Konstruktion',icon:'puzzle',color:'#467b8f',members:['Konstruktion','Konstruktion Nachentwicklung'],notes:['Konstruktion +','Nachentwicklung']},
+  {name:'Qualität',icon:'shield',color:'#3b7e48',members:['Qualität Reklamation','Qualität Softwaretesting','Qualität Dauerlauf','Qualität Sonstiges'],notes:['Softwaretesting, Dauerlauf,','Reklamation und Sonstiges']},
+  {name:'Support / Service',icon:'headset',color:'#813bb0',members:['Global Tech Support','Support Deutschland','Service D','Support Schaerer'],notes:['Global Tech Support,','Support DE / Schaerer, Service D']}
+ ];
+ const covered=new Set(definitions.flatMap(group=>group.members));definitions.push({name:'Weitere',icon:'people',color:'#677b99',members:departmentRows.filter(row=>!covered.has(row.name)).map(row=>row.name),notes:['Übrige Bereiche und','unklare Zuordnungen']});
+ return definitions.map(group=>{const rows=departmentRows.filter(row=>group.members.includes(row.name));return {...group,rows,newShare:rows.reduce((sum,row)=>sum+(row.newShare??0),0),oldShare:rows.reduce((sum,row)=>sum+row.oldShare,0),oldCount:rows.reduce((sum,row)=>sum+row.oldCount,0)};});
+}
+function formatShare(value){return (value/100).toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+' %';}
+
+// Die historischen Support-Bezeichnungen gehören fachlich zu einem Bereich; ihre Anteile werden nur einmal summiert.
+function departmentDetails(area){
+ // Konstruktion und Nachentwicklung werden fachlich als ein gemeinsamer Bereich dargestellt.
+ if(area.name==='Konstruktion')return [{name:'Konstruktion',newShare:area.newShare,oldShare:area.oldShare}];
+ if(area.name!=='Support / Service')return area.rows;
+ const supportRows=area.rows.filter(row=>['Service D','Support Deutschland','Support Schaerer'].includes(row.name));
+ return [...area.rows.filter(row=>!supportRows.includes(row)),{name:'Support Deutschland',newShare:supportRows.reduce((sum,row)=>sum+(row.newShare??0),0),oldShare:supportRows.reduce((sum,row)=>sum+row.oldShare,0)}];
+}
+
+function marketingFrame(architecture,diagramWidth,diagramHeight){
+ const left=340,top=560,totalWidth=diagramWidth+680,totalHeight=diagramHeight+590,right=left+diagramWidth+20;
+ const text=(x,y,value,size=16,color='#183575',weight=400,anchor='start')=>`<text x="${x}" y="${y}" font-size="${size}" fill="${color}" font-weight="${weight}" text-anchor="${anchor}">${escapeHtml(value)}</text>`;
+ const wrap=(value,max)=>{const lines=[];let line='';for(const word of value.split(/\s+/)){if(line&&line.length+word.length+1>max){lines.push(line);line=word;}else line=(line+' '+word).trim();}if(line)lines.push(line);return lines;};
+
+ let frame=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalWidth} ${totalHeight}" role="img" aria-labelledby="factsheet-title factsheet-desc" class="marketing-view" style="font-family:Arial,sans-serif"><title id="factsheet-title">Toolbox – Factsheet und Toollandschaft</title><desc id="factsheet-desc">Etwa 180 Nutzer in Deutschland, der Schweiz, China und UK. Etwa 60 Tools in Toolbox Core, hier als Teilmenge dargestellt. Im Oktober 2026 mehr als 1.500 Programmstarts über Toolbox Core und geschätzt etwa 1.300 über die alte Toolbox. Schätzung: 1.500 × 800 / 900, auf Hunderter gerundet. Mehr als 900 Öffnungen der neuen Toolbox, etwa 800 Öffnungen der alten Toolbox im selben Zeitraum. Von Q1 bis Q3 2026 zusammen mehr als 10.000 erfasste Öffnungen von Toolbox und Toolbox Core. Debug-Sessions zählen nicht als Öffnung; externe Toolstarts sind in der alten Erfassung teilweise nicht enthalten. Bereichsanteile: neue Toolbox als Hauptwert, alte Toolbox in Klammern; Stand der Bereichstabellen: bis Oktober 2026.</desc><rect width="${totalWidth}" height="${totalHeight}" rx="16" fill="white"/>`;
+ frame+=text(totalWidth/2,55,'Toolbox',42,'#172f77',700,'middle')+text(totalWidth/2,81,'Vernetzte Tools und Daten für PCM',16,'#647795',400,'middle');
+ frame+=text(25,103,'BEREICHSVERTEILUNG · NEUE TOOLBOX (ALTE TOOLBOX) · STAND: BIS OKTOBER 2026',12,'#243d76',700);
+ const areas=groupedDepartments(),statsWidth=totalWidth-480,columnWidth=statsWidth/areas.length;
+ frame+=`<rect x="20" y="113" width="${statsWidth}" height="240" rx="10" fill="#fff" stroke="#bac9e2"/>`;
+ areas.forEach((area,index)=>{
+  const x=20+index*columnWidth,description=departmentDetails(area).map(row=>row.name+': neu '+(row.newShare===null?'nicht separat ausgewiesen':formatShare(row.newShare))+' (alt '+formatShare(row.oldShare)+')').join('\n');
+  frame+=`<g class="department-group" data-department="${escapeHtml(area.name)}"><title>${escapeHtml(description)}</title>`;
+  if(index)frame+=`<path d="M${x} 135V330" stroke="#ccd7e9"/>`;
+  frame+=graphIcon(area.icon,x+23,135,32,area.color)+text(x+67,157,area.name,17,area.color,700)+text(x+26,202,formatShare(area.newShare),29,area.color,700)+text(x+162,199,'('+formatShare(area.oldShare)+')',17,'#637793');
+  frame+=text(x+27,225,'Neu',11,'#738199')+text(x+163,225,'Alt',11,'#738199');
+  // Einzelanteile stehen unter der unveränderten Gesamtsumme; fehlende neue Werte bleiben erkennbar.
+  if(['Qualität','Support / Service'].includes(area.name)){
+   const rows=area.name==='Qualität'?['Qualität Softwaretesting','Qualität Dauerlauf','Qualität Reklamation','Qualität Sonstiges'].map(name=>area.rows.find(row=>row.name===name)):departmentDetails(area);
+   rows.forEach((row,index)=>{
+    const label=row.name.replace(/^Qualität /,'').replace('Konstruktion Nachentwicklung','Nachentwicklung');
+    frame+=text(x+26,253+index*25,label,12,'#536780')+text(x+columnWidth-18,253+index*25,(row.newShare===null?'–':formatShare(row.newShare))+' ('+formatShare(row.oldShare)+')',12,'#536780',400,'end');
+   });
+  }
+  frame+='</g>';
+ });
+ const metricX=totalWidth-440;
+ frame+=`<rect x="${metricX}" y="113" width="420" height="240" rx="10" fill="#fff" stroke="#bac9e2"/><path d="M${metricX+22} 220H${metricX+398}" stroke="#ccd7e9"/>`;
+ frame+=graphIcon('people',metricX+26,142,46,'#172f77')+text(metricX+99,165,'≈ 180',34,'#172f77',700)+text(metricX+99,192,'NUTZER GESAMT · STAND 2026',13,'#3f5474',700);
+ frame+=graphIcon('network',metricX+26,252,43,'#172f77')+text(metricX+99,268,'Deutschland · Schweiz',15,'#536780')+text(metricX+99,296,'China · UK',15,'#536780');
+ const usageWidth=(totalWidth-80)/3;
+ // Die alte Toolbox wird mit demselben Verhältnis von Programmstarts zu Öffnungen geschätzt; die Rundung vermeidet Scheingenauigkeit.
+ const estimatedLegacyStarts=Math.round((1500*800/900)/100)*100;
+ const usageCards=[
+  {value:'> 1.500',comparison:'(≈ '+estimatedLegacyStarts.toLocaleString('de-DE')+')',title:'PROGRAMMSTARTS · TOOLBOX CORE (TOOLBOX)',note:'Oktober 2026 · Wert der alten Toolbox geschätzt'},
+  {value:'> 900',comparison:'(≈ 800)',title:'TOOLBOX-ÖFFNUNGEN · NEU (ALT)',note:'Oktober 2026 · neue Toolbox (alte Toolbox)'},
+  {value:'> 10.000',title:'ÖFFNUNGEN · TOOLBOX + TOOLBOX CORE',note:'Q1–Q3 2026 · beide Versionen kombiniert'}
+ ];
+ usageCards.forEach((card,index)=>{const x=20+index*(usageWidth+20);frame+=`<rect x="${x}" y="375" width="${usageWidth}" height="126" rx="10" fill="#f9fbff" stroke="#bac9e2"/>`+graphIcon(index===1?'cube':'chart',x+23,403,44,'#233b83')+text(x+91,423,card.value,35,'#172f77',700);if(card.comparison)frame+=text(x+(index===0?270:235),421,card.comparison,24,'#637793');frame+=text(x+91,454,card.title,15,'#243d76',700)+text(x+91,479,card.note,13,'#536780');});
+ function panel(x,title,items,step){
+  let result=`<rect x="${x}" y="${top}" width="300" height="${diagramHeight}" rx="10" fill="#fff" stroke="#ccd7e9"/><path d="M${x+10} ${top}h280q10 0 10 10v34h-300v-34q0-10 10-10" fill="#172f77"/>`+text(x+150,top+29,title,16,'white',700,'middle');
+  items.forEach((item,index)=>{const y=top+91+index*step;result+=graphIcon(item.icon,x+20,y-24,43,item.color||'#233b83');const titleLines=wrap(item.title,23);titleLines.forEach((line,row)=>result+=text(x+82,y+row*21,line,16,item.color||'#233b83',700));wrap(item.body,24).forEach((line,row)=>result+=text(x+82,y+titleLines.length*21+9+row*22,line,14,'#536780'));});return result;
+ }
+ frame+=panel(20,'DAS IST DIE TOOLBOX',[
+ {icon:'cube',title:'Zentrale Plattform',body:'Einheitliche Toollandschaft für das PCM-Umfeld.'},
+ {icon:'ai',title:'Zentraler KI-Dienst',body:'Tooly stellt lokale KI-Funktionen für andere Tools bereit.',color:'#813bb0'},
+ {icon:'people',title:'Zentrale Toolverteilung',body:'Anwendungen über Toolbox Core zentral bereitstellen.',color:'#813bb0'},
+ {icon:'puzzle',title:'Einfach integrierbar',body:'Spezialisierte Gateways bündeln technische Schnittstellen.',color:'#177d97'},
+ {icon:'shield',title:'Rechte zentral abfragen',body:'AccessBridge stellt den Tools die Nutzerrechte bereit.',color:'#b24773'}
+ ],270);
+ frame+=panel(right,'NUTZEN FÜR PCM',[
+ {icon:'target',title:'Effizienz steigern',body:'Weniger manuelle Schritte durch gemeinsame Werkzeuge.'},
+ {icon:'database',title:'Daten intelligent nutzen',body:'Mess-, Log-, Projekt- und Telemetriedaten standardisiert ablegen und nutzbar machen.'},
+ {icon:'network',title:'Durchgängig vernetzt',body:'Daten aus Labor, Entwicklung, QS, Produktion und Feldstandorten verbinden.'},
+ {icon:'rocket',title:'Erweiterbar bleiben',body:'Moderne Architektur mit integrierter KI. Einfach um neue Tools und Datenquellen erweiterbar.'},
+ {icon:'cube',title:'Breites Toolangebot',body:'Bereits ca. 60 Tools in Toolbox Core. Dargestellt ist eine Teilmenge.'},
+ {icon:'people',title:'Breit eingesetzt',body:'Ca. 180 Nutzer in Deutschland, Schweiz, China und UK (Stand 2026).'},
+ {icon:'shield',title:'Sicher & kontrolliert',body:'Nutzerrechte zentral abfragen und KI lokal ausführen.'},
+ {icon:'chart',title:'Hohe Nutzung',body:'Mehr als 1.500 Programmstarts über Toolbox Core im Oktober 2026.'}
+ ],170);
+ const inner=architecture.replace(/^<svg\b[^>]*>/,'').replace(/<\/svg>\s*$/,'');
+ frame+=`<g transform="translate(${left} ${top})">${inner}</g>`;
+ frame+=text(25,totalHeight-13,'Nutzer / Toolbestand: 2026 · Bereichsanteile: Stand bis Oktober 2026 · Prozentwerte gerundet, nicht auf 100 % normiert · Öffnungen ohne Debug-Sessions · Externe Toolstarts (z. B. LabAssist im Dauerlauf) in der alten Erfassung teilweise nicht enthalten.',12,'#738199');
+ return frame+'</svg>';
+}
+
+function renderGraph(){
+ let graph=document.querySelector('#graph-surface');if(!graph){graph=document.createElement('div');graph.id='graph-surface';document.querySelector('#architecture').appendChild(graph);document.querySelector('.diagram-content').style.display='none';}
+ // Alphabetische Reihenfolge bleibt stabil; bei oberen Anschlüssen wird der linke Titelbereich freigehalten.
+ const applications=model.tools.filter(tool=>tool.layer==='app'||(tool.layer==='ai'&&tool.id!=='tooly')).sort((first,second)=>first.name.localeCompare(second.name,'de',{numeric:true,sensitivity:'base'}));
+ const extraRows=Math.max(0,Math.ceil(applications.length/11)-1),offset=extraRows*195;
+ const gateways=model.tools.filter(tool=>tool.layer==='gateway'),gatewayColumns=Math.min(4,Math.max(3,gateways.length)),gatewayRows=Math.ceil(gateways.length/gatewayColumns),gatewayOffset=(gatewayRows-1)*185;const gatewayWidth=gatewayColumns===4?420:470,gatewayStep=gatewayColumns===4?450:630,gatewayStart=gatewayColumns===4?70:90;
+ const height=1480+offset+gatewayOffset,width=2100;
+ const positions={'labassist-db':{x:80,y:255,w:230,h:75},core:{x:445,y:65,w:420,h:110},access:{x:1045,y:65,w:420,h:110},tooly:{x:850,y:385,w:172,h:160},'llama-local':{x:590,y:415,w:230,h:100},'cloud-models':{x:1060,y:415,w:310,h:100},'sensor-db':{x:365,y:255,w:190,h:75},'core-db':{x:610,y:255,w:220,h:75},'hydraulic-schema-db':{x:875,y:255,w:280,h:75},'machine-files':{x:1190,y:255,w:300,h:75},'electrical-schema-db':{x:1525,y:255,w:300,h:75},'eventmds-db':{x:1860,y:255,w:210,h:75},influx:{x:1100,y:910+offset,w:210,h:60}};
+ applications.forEach((tool,index)=>positions[tool.id]={x:30+(index%11)*184,y:720+Math.floor(index/11)*195,w:172,h:160});
+ // Vier Gateways bleiben auf einer gemeinsamen Höhe; weitere Ergänzungen erhalten zusätzliche Zeilen.
+ gateways.forEach((tool,index)=>positions[tool.id]={x:gatewayStart+(index%gatewayColumns)*gatewayStep,y:1100+offset+Math.floor(index/gatewayColumns)*185,w:gatewayWidth,h:108});
+ if(positions.cm)positions['digital-platform']={x:positions.cm.x+(gatewayWidth-340)/2,y:1295+offset+gatewayOffset,w:340,h:90};
+ const focused=graphFocus,related=new Set([focused]);model.links.forEach(link=>{if(link[0]===focused)related.add(link[1]);if(link[1]===focused)related.add(link[0]);});
+ const text=(x,y,value,size=14,color='#172e58',weight=400,anchor='start')=>`<text x="${x}" y="${y}" fill="${color}" font-size="${size}" font-weight="${weight}" text-anchor="${anchor}">${escapeHtml(value)}</text>`;
+ let svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="graph-title graph-desc" style="font-family:Arial,sans-serif"><title id="graph-title">Toolbox – vernetzte Toollandschaft</title><desc id="graph-desc">Schaltplan mit Sammelleitungen: Punkte markieren echte Verbindungen, Kreuzungen ohne Punkt sind getrennt. MachineCenter steht auf der Anwendungsebene. Toolbox Core verwaltet den Bestand und schreibt Werkdaten. Toolbox AccessBridge liefert Nutzerrechte und greift auf ToolboxCore.db zu. LabAssist verwaltet LabAssist.db; LiveData liest daraus.</desc><defs><marker id="cm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#168c89"/></marker><filter id="card-shadow" x="-10%" y="-15%" width="120%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#23345e" flood-opacity="0.07"/></filter><linearGradient id="wash" x2="0" y2="1"><stop stop-color="#fafbff"/><stop offset="1" stop-color="#ffffff"/></linearGradient></defs><rect width="${width}" height="${height}" rx="15" fill="white"/>`;
+ function label(y,number,title,note,x=35){svg+=`<rect x="20" y="${y-20}" width="${width-40}" height="31" rx="5" fill="#f1f4fa"/>`+text(x,y,number+'  '+title,12,'#243d76',700)+text(width-36,y,note,11,'#687991',400,'end');}
+ label(35,'01','TOOLVERTEILUNG','');
+ label(231,'02','DATENHALTUNG','');
+ label(365,'03','KI-DIENST','');
+ label(700,'04','TOOLS','');
+ label(1075+offset,'05','GATEWAYS','');
+ label(1250+offset+gatewayOffset,'06','GERÄTE & SYSTEME','');
+ const isAsset=id=>['labassist-db','sensor-db','machine-files','hydraulic-schema-db','electrical-schema-db','eventmds-db'].includes(id);
+ const visible=model.links.filter(link=>positions[link[0]]&&positions[link[1]]);
+ const platformLinks=visible.filter(link=>link[0]==='cm'&&link[1]==='digital-platform');
+ const managementLinks=visible.filter(link=>link[0]==='core');const backendLinks=visible.filter(link=>link[0]==='tooly'&&['llama-local','cloud-models'].includes(link[1]));
+ const nets=new Map();for(const link of visible.filter(item=>item[0]!=='core'&&!(item[0]==='cm'&&item[1]==='digital-platform')&&!(item[0]==='tooly'&&['llama-local','cloud-models'].includes(item[1])))){if(!nets.has(link[1]))nets.set(link[1],[]);nets.get(link[1]).push(link);}
+ function line(path,color,planned=false,muted=false){return `<g class="${muted?'graph-muted':''}"><path d="${path}" fill="none" stroke="white" stroke-width="7"/><path d="${path}" fill="none" stroke="${color}" stroke-width="2.3" ${planned?'stroke-dasharray="7 5"':''}/></g>`;}
+ function dot(x,y,color,muted=false){return `<circle class="junction ${muted?'graph-muted':''}" cx="${x}" cy="${y}" r="4" fill="${color}"/>`;}
+ // Schreibzugriffe der Toolbox führen oberhalb der Bestände direkt zur jeweiligen Kachel und nicht in die unteren Anwender-Sammelleitungen.
+ for(const link of managementLinks){const source=positions.core,target=positions[link[1]];const order=['sensor-db','core-db','machine-files'].indexOf(link[1]);const sourceX=source.x+source.w*(.18+order*.28),targetX=target.x+target.w*(link[1]==='core-db'?.35:.5),lane=218-order*12;const muted=!!focused&&!link.includes(focused);svg+=`<g class="management-link" data-target="${link[1]}"><title>${escapeHtml('Toolbox Core → '+model.tools.find(tool=>tool.id===link[1]).name+' · Werkdaten schreiben')}</title>`+line(`M${sourceX} ${source.y+source.h}V${lane}H${targetX}V${target.y}`,graphPalette[link[1]]||'#6a7f9d',false,muted)+`</g>`;}
+ // Backend-Leitungen laufen seitlich auf gleicher Höhe und kreuzen weder den Datenbestand noch die Rechte-Sammelleitung.
+ for(const link of backendLinks){const source=positions.tooly,target=positions[link[1]],local=link[1]==='llama-local',sourceX=local?source.x:source.x+source.w,targetX=local?target.x+target.w:target.x,centerY=source.y+source.h/2,muted=!!focused&&!link.includes(focused);svg+=`<g class="backend-link" data-source="tooly" data-target="${link[1]}"><title>${escapeHtml(link[3])}</title>`+line(`M${sourceX} ${centerY}H${targetX}`,'#813bb0',link[2]==='planned',muted)+text((sourceX+targetX)/2,centerY+17,local?'lokal':'API',9,'#813bb0',400,'middle')+`</g>`;}
+ // Der Pfeil kennzeichnet den ausdrücklich genannten Versand aus dem CMGateway in den Cloud-Datenspeicher.
+ for(const link of platformLinks){const source=positions.cm,target=positions['digital-platform'],x=source.x+source.w/2,muted=!!focused&&!link.includes(focused);svg+=`<g class="platform-link ${muted?'graph-muted':''}" data-source="cm" data-target="digital-platform"><title>${escapeHtml(link[3])}</title><path d="M${x} ${source.y+source.h}V${target.y}" fill="none" stroke="#168c89" stroke-width="2.3" marker-end="url(#cm-arrow)"/></g>`;}
+ // Pro Ziel entsteht genau eine Sammelleitung. Status und Auswahl gelten weiterhin je konkretem Abzweig.
+ for(const [targetId,links] of nets){
+  const target=positions[targetId],asset=isAsset(targetId),ai=targetId==='tooly',database=targetId==='influx',security=targetId==='access';
+  const color=graphPalette[targetId]||'#687991';const upper=asset||ai||security||targetId==='core-db';
+    const busY=security?555:targetId==='labassist-db'?625:targetId==='sensor-db'?605:targetId==='machine-files'?650:targetId==='hydraulic-schema-db'?615:targetId==='electrical-schema-db'?640:targetId==='eventmds-db'?665:ai?570:database?900+offset:targetId==='device'?985+offset:targetId==='machine'?1020+offset:targetId==='enterprise'?1045+offset:targetId==='cm'?1060+offset:210;
+  const targetX=security?1875:target.x+target.w*(targetId==='core-db'?.7:.5),targetY=security?target.y+target.h*.5:upper?target.y+target.h:target.y;
+  const directManagement=targetId==='core-db';
+  const branches=links.map((link,index)=>{const source=positions[link[0]];let fraction=security?.94:asset?(targetId==='labassist-db'?.58:targetId==='sensor-db'?.24:targetId==='hydraulic-schema-db'?.52:targetId==='electrical-schema-db'?.68:targetId==='eventmds-db'?.38:.78):.5;if(link[0]==='core')fraction=targetId==='sensor-db'?.12:targetId==='machine-files'?.24:targetId==='center-db'?.52:.72;if(link[0]==='livedata'&&!upper&&!database)fraction=targetId==='device'?.32:.58;if(link[0]==='telemetry'&&!upper&&!database)fraction=targetId==='cm'?.7:.4;return {link,x:source.x+source.w*fraction,y:['core','access'].includes(link[0])?source.y+source.h:upper?source.y:source.y+source.h};});
+  const netFocused=!focused||targetId===focused||links.some(link=>link[0]===focused);const trunkPlanned=links.every(link=>link[2]==='planned');
+  if(directManagement){const branch=branches[0];const lane=206;const d=`M${branch.x} ${branch.y}V${lane}H${targetX}V${target.y}`;svg+=`<g class="graph-net" data-net="${targetId}">`+line(d,color,false,!netFocused)+`</g>`;continue;}
+  for(const branch of branches){branch.busX=upper&&branch.y>=720&&branch.x<225?230+(security?30:asset?(targetId==='sensor-db'?0:20):10):branch.x;}
+  const xs=[targetX,...branches.map(branch=>branch.busX)],minX=Math.min(...xs)-16,maxX=Math.max(...xs)+16;
+  svg+=`<g class="graph-net" data-net="${targetId}"><title>${escapeHtml(model.tools.find(tool=>tool.id===targetId).name)} – gemeinsame Leitung</title>`;
+  const trunk=security?`M${target.x+target.w} ${targetY}H${targetX}V${busY}M${minX} ${busY}H${maxX}`:`M${targetX} ${targetY}V${busY}M${minX} ${busY}H${maxX}`;svg+=line(trunk,color,trunkPlanned,!netFocused);
+  const junctions=[{x:targetX,muted:!netFocused}];
+  for(const branch of branches){const muted=!!focused&&!branch.link.includes(focused);svg+=`<g class="graph-branch" data-source="${branch.link[0]}" data-target="${targetId}"><title>${escapeHtml(model.tools.find(tool=>tool.id===branch.link[0]).name+' ↔ '+model.tools.find(tool=>tool.id===targetId).name+' · '+branch.link[3])}</title>`+line(branch.busX!==branch.x?`M${branch.x} ${branch.y}V${branch.y-5}H${branch.busX}V${busY}`:`M${branch.x} ${branch.y}V${busY}`,color,branch.link[2]==='planned',muted)+`</g>`;junctions.push({x:branch.busX,muted});}
+  // Nur physisch zusammengeführte Abzweige erhalten einen Punkt. Andere Kreuzungen bleiben ohne Punkt.
+  junctions.forEach(junction=>svg+=dot(junction.x,busY,color,junction.muted));svg+='</g>';
+ }
+ const toolStyles={'labassist-db':['database','#a68126'],cm:['gateway','#168c89'],'digital-platform':['cloudStorage','#168c89'],'llama-local':['server','#813bb0'],'cloud-models':['cloud','#813bb0'],'hydraulic-schema-db':['database','#a68126'],'electrical-schema-db':['database','#a68126'],'eventmds-db':['database','#a68126'],eventinsight:['chart','#548243'],access:['shield','#b24773'],brewlab:['coffee','#813bb0'],labassist:['lab','#4d8547'],robo:['robot','#468573'],livedata:['live','#177d97'],logbase:['database','#21748a'],analyze:['chart','#548243'],telemetry:['telemetry','#d2722f'],brewlytics:['chart','#bd7929'],project:['project','#526ab3'],device:['gateway','#177d97'],machine:['server','#3c5db4'],enterprise:['cloud','#c47722'],tooly:['ai','#813bb0'],core:['cube','#233b83'],center:['server','#3c5db4'],'sensor-db':['database','#a68126'],'center-db':['database','#6a7f9d'],'core-db':['database','#6a7f9d'],'machine-files':['files','#a68126'],influx:['database','#438357']};
+ function wrap(value,max=22){const lines=[];let line='';for(const word of value.split(/\s+/)){if((line+' '+word).trim().length>max&&line){lines.push(line);line=word;}else line=(line+' '+word).trim();}if(line)lines.push(line);return lines;}
+ for(const tool of model.tools.filter(item=>positions[item.id]).sort((first,second)=>positions[first.id].y-positions[second.id].y||positions[first.id].x-positions[second.id].x)){const pos=positions[tool.id];if(!pos)continue;const [kind,color]=toolStyles[tool.id]||['cube','#526ab3'];const dim=(focused&&!related.has(tool.id)&&tool.id!=='core');const application=tool.layer==='app'||tool.layer==='ai';svg+=`<g class="graph-node ${dim?'graph-muted':''}" data-tool="${escapeHtml(tool.id)}" tabindex="0" role="button" aria-label="${escapeHtml(tool.name)}: Details öffnen"><rect x="${pos.x}" y="${pos.y}" width="${pos.w}" height="${pos.h}" rx="10" fill="url(#wash)" stroke="${color}" stroke-opacity="${focused===tool.id?1:.42}" stroke-width="${focused===tool.id?3:1.3}" filter="url(#card-shadow)"/>`;
+  if(application){const summary=tool.id==='center'?'Sensor.db & IO-/Maschinenlisten lesen und schreiben':tool.summary;const lines=wrap(summary);svg+=`<circle cx="${pos.x+pos.w/2}" cy="${pos.y+35}" r="25" fill="${color}" fill-opacity=".08"/>`+graphIcon(kind,pos.x+pos.w/2-18,pos.y+17,36,color)+text(pos.x+pos.w/2,pos.y+83,tool.name,16,color,700,'middle');lines.forEach((entry,index)=>svg+=text(pos.x+pos.w/2,pos.y+107+index*16,entry,12,'#536780',400,'middle'));}
+  else if(tool.layer==='data'){svg+=graphIcon(kind,pos.x+12,pos.y+14,29,color);const name=tool.id==='machine-files'?'IOs.json · Machine.json':tool.name;svg+=text(pos.x+51,pos.y+29,name,['center-db','influx'].includes(tool.id)?14:15,color,700)+text(pos.x+51,pos.y+51,tool.id==='influx'?'z. B. InfluxDB':tool.id==='machine-files'?'IO- und Maschinenlisten':tool.id==='digital-platform'?'Cloud-Datenspeicher':'Datenbank',11,'#687991');}
+  else{svg+=graphIcon(kind,pos.x+17,pos.y+20,40,color)+text(pos.x+74,pos.y+35,tool.name,21,color,700);const lines=tool.id==='core'?['Tools verteilen · Bestände verwalten','Neue Werkdaten schreiben']:tool.id==='access'?['Security · Nutzerrechte abfragen','Rechtebasis: ToolboxCore.db']:tool.id==='llama-local'?['Lokale KI-Inferenz','Modelle ausführen']:tool.id==='cloud-models'?['Leistungsfähigere Modelle','API · noch nicht integriert']:wrap(tool.summary,46);lines.forEach((entry,index)=>svg+=text(pos.x+74,pos.y+57+index*18,entry,13,'#536780'));}
+  svg+='</g>';
+ }
+ // Schreibrechte sind explizit beschriftet; eine allgemeine Zugriffsleitung allein behauptet keine Schreibberechtigung.
+ const center=positions.center;svg+=text(center.x+center.w/2,center.y+150,'R/W: Sensor.db + JSON',10,'#3c5db4',700,'middle');
+ // Die Zusatzbeschriftungen unterscheiden die fachliche Verwaltung vom ausschließlich lesenden Zugriff.
+ for(const [id,caption] of [['labassist','Verwaltet LabAssist.db'],['livedata','R: LabAssist.db']]){const pos=positions[id];svg+=text(pos.x+pos.w/2,pos.y+150,caption,10,'#a68126',700,'middle');}
+ const sourceY=1270+offset+gatewayOffset;
+ const sources=[{icons:['coffeeMachine','measure','sensor','robot'],lines:['Kaffeemaschinen · Messgeräte · Sensoren','Roboter · CANAnalyzer','NGX · CMRemote · RemoteAPI · LiveData','Modbus · CAN · USB · …']},{icons:['coffeeMachine','database','files'],lines:['Kaffeemaschinen-Dateisysteme','Datenbanken · Logfiles · Uploads','SFTP · FTP · SCP']},{icons:['api','cloud','files'],lines:['Polarion → REST API','SAP · SharePoint → zukünftig, Schnittstellen offen','Azure-Telemetrie → zukünftig, KQL-Abfragen']}];
+ ['device','machine','enterprise'].forEach((id,index)=>{const pos=positions[id];if(!pos)return;const x=pos.x,color=graphPalette[id];svg+=`<path d="M ${x+pos.w/2} ${pos.y+pos.h} V ${sourceY}" stroke="${color}" stroke-width="2"/><rect x="${x}" y="${sourceY}" width="${pos.w}" height="140" rx="9" fill="#f8faff" stroke="#dce4ef"/>`;sources[index].icons.forEach((kind,n)=>svg+=graphIcon(kind,x+18+n*43,sourceY+12,27,color));sources[index].lines.forEach((entry,row)=>svg+=text(x+18,sourceY+65+row*20,entry,13,'#536780',row===0?600:400));});
+ const legends=[['#813bb0','KI / Tooly'],['#b24773','AccessBridge / Nutzerrechte'],['#a68126','Datenbanken & JSON'],['#177d97','DeviceGateway'],['#3c5db4','MachineController'],['#c47722','EnterpriseGateway'],['#168c89','CMGateway / Cloud'],['#438357','Messdatenspeicher']];
+ legends.forEach(([color,title],index)=>{const x=40+index*235;svg+=`<path d="M${x} ${height-42}h26" stroke="${color}" stroke-width="3"/>`+text(x+34,height-38,title,12,'#536780');});
+ svg+=`<path d="M40 ${height-15}h28" stroke="#536780" stroke-width="2"/><path d="M300 ${height-15}h28" stroke="#536780" stroke-width="2" stroke-dasharray="7 5"/><circle cx="660" cy="${height-15}" r="4" fill="#536780"/>`+text(80,height-11,'Bestehend',11,'#687991')+text(340,height-11,'Geplant / teilweise umgesetzt',11,'#687991')+text(675,height-11,'Punkt = verbunden · Kreuzung ohne Punkt = getrennt',11,'#687991')+text(1870,height-11,'R/W = Lesen und Schreiben · Zugriffsprotokolle auf Bestände offen',11,'#687991',400,'end');
+ svg+='</svg>';if(marketingEnabled)svg=marketingFrame(svg,width,height);graph.innerHTML=svg;
+}
+render();
+</script></body></html>
